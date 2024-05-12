@@ -1,4 +1,4 @@
-package gen;// Generated from /home/gerardpf/IdeaProjects/Calculator_ANTLR/Calculator.g4 by ANTLR 4.13.1
+package gen;// Generated from /home/gerardpf/IdeaProjects/Calculator_ANTLR/src/Calculator.g4 by ANTLR 4.13.1
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**
@@ -10,7 +10,35 @@ import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
  * operations with no return type.
  */
 @SuppressWarnings("CheckReturnValue")
-public class CalculatorBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements CalculatorVisitor<T> {
+public abstract class CalculatorBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements CalculatorVisitor<T> {
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitProgram(CalculatorParser.ProgramContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitExprStatement(CalculatorParser.ExprStatementContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitAssignmentStatement(CalculatorParser.AssignmentStatementContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitAssignment(CalculatorParser.AssignmentContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -25,6 +53,9 @@ public class CalculatorBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitAddSub(CalculatorParser.AddSubContext ctx) { return visitChildren(ctx); }
+
+	public abstract Double visitAssign(CalculatorParser.AssignContext ctx);
+
 	/**
 	 * {@inheritDoc}
 	 *
@@ -32,6 +63,13 @@ public class CalculatorBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitInt(CalculatorParser.IntContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitVariable(CalculatorParser.VariableContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

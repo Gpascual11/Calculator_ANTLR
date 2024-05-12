@@ -1,4 +1,4 @@
-package gen;// Generated from /home/gerardpf/IdeaProjects/Calculator_ANTLR/Calculator.g4 by ANTLR 4.13.1
+package gen;// Generated from /home/gerardpf/IdeaProjects/Calculator_ANTLR/src/Calculator.g4 by ANTLR 4.13.1
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -11,6 +11,54 @@ import org.antlr.v4.runtime.tree.TerminalNode;
  */
 @SuppressWarnings("CheckReturnValue")
 public class CalculatorBaseListener implements CalculatorListener {
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterProgram(CalculatorParser.ProgramContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitProgram(CalculatorParser.ProgramContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExprStatement(CalculatorParser.ExprStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExprStatement(CalculatorParser.ExprStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAssignmentStatement(CalculatorParser.AssignmentStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAssignmentStatement(CalculatorParser.AssignmentStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAssignment(CalculatorParser.AssignmentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAssignment(CalculatorParser.AssignmentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -47,6 +95,18 @@ public class CalculatorBaseListener implements CalculatorListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitInt(CalculatorParser.IntContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterVariable(CalculatorParser.VariableContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitVariable(CalculatorParser.VariableContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

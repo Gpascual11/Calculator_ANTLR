@@ -1,12 +1,13 @@
 package gen;
 
+import gen.CalculatorVisitorImpl;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 
 public class Main {
     public static void main(String[] args) {
         // Create a CharStream that reads from standard input
-        CharStream input = CharStreams.fromString("2+(3*4)");
+        CharStream input = CharStreams.fromString("x = 2\ny = 3\nx+(y*4)\n");
 
         // Create a lexer that feeds off of input CharStream
         CalculatorLexer lexer = new CalculatorLexer(input);
@@ -18,15 +19,15 @@ public class Main {
         CalculatorParser parser = new CalculatorParser(tokens);
 
         // Create a parse tree
-        ParseTree tree = parser.expr();
+        ParseTree tree = parser.program();
 
         // Create a visitor to evaluate the expressions
         CalculatorVisitorImpl visitor = new CalculatorVisitorImpl();
 
         // Traverse the parse tree using the visitor
-        double result = visitor.visit(tree);
+        visitor.visit(tree);
 
         // Output the result
-        System.out.println("Result: " + result);
+        System.out.println("Result: " + visitor.getResult());
     }
 }
