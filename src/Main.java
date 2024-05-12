@@ -1,5 +1,5 @@
-package gen;
-
+import gen.CalculatorLexer;
+import gen.CalculatorParser;
 import gen.CalculatorVisitorImpl;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;

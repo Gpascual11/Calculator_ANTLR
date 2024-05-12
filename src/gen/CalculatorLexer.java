@@ -84,7 +84,7 @@ public class CalculatorLexer extends Lexer {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "gen/Calculator.g4"; }
+	public String getGrammarFileName() { return "Calculator.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }

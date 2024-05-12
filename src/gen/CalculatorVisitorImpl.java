@@ -5,7 +5,7 @@ import java.util.Map;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 
-class CalculatorVisitorImpl extends CalculatorBaseVisitor<Double> {
+public class CalculatorVisitorImpl extends CalculatorBaseVisitor<Double> {
     private Map<String, Double> variables = new HashMap<>();
     private Double result; // Afegim una variable per emmagatzemar el resultat
 
