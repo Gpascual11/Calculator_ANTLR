@@ -1,12 +1,19 @@
 grammar Calculator;
 
-expr: term (('*' | '/') term)*         # MulDiv
-    | term (('+' | '-') term)*         # AddSub
+expr: term ((MUL | DIV) term)*         # MulDiv
     ;
 
-term: INT                               # Int
-    | '(' expr ')'                      # Parens
+term: factor ((ADD | SUB) factor)*     # AddSub
     ;
+
+factor: INT                              # Int
+    | '(' expr ')'                       # Parens
+    ;
+
+MUL: '*';
+DIV: '/';
+ADD: '+';
+SUB: '-';
 
 INT: [0-9]+ ;
 WS : [ \t\r\n]+ -> skip ;

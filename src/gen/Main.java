@@ -1,10 +1,12 @@
+package gen;
+
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 
 public class Main {
     public static void main(String[] args) {
         // Create a CharStream that reads from standard input
-        CharStream input = CharStreams.fromString("2 + 3 * (4 - 1)");
+        CharStream input = CharStreams.fromString("2+(3*4)");
 
         // Create a lexer that feeds off of input CharStream
         CalculatorLexer lexer = new CalculatorLexer(input);
