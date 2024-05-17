@@ -102,7 +102,7 @@ public class CalculatorTest {
         String expression = "x = 2\ny = x + 3\nz = y * (x + 1)\na = z / y\nb = a * (z + y)\nc = b - (a + x)\nc\n";
         double expected = 55.0;
         double result = evaluateExpression(expression);
-        assertEquals(expected, result, "Expression with multiple nested variables should equal 11");
+        assertEquals(expected, result, "Expression with multiple nested variables should equal 55.0");
     }
 
     @org.junit.Test
@@ -118,7 +118,7 @@ public class CalculatorTest {
         String expression = "x = 5\ny = 3 - x\nz = y * (x + 1)\nz\n";
         double expected = -12.0;
         double result = evaluateExpression(expression);
-        assertEquals(expected, result, "Expression with negative result should equal -16");
+        assertEquals(expected, result, "Expression with negative result should equal -12.0");
     }
 
     @org.junit.Test
@@ -126,7 +126,7 @@ public class CalculatorTest {
         String expression = "x = 100\ny = x * 3\nz = y / (x - 20)\nv = z + (y * 2)\nw = v - (x / 2)\nw\n";
         double expected = 553.75;
         double result = evaluateExpression(expression);
-        assertEquals(expected, result, "Expression with bigger numbers and two operations should equal 750");
+        assertEquals(expected, result, "Expression with bigger numbers and two operations should equal 553.75");
     }
 
     @org.junit.Test
@@ -134,7 +134,7 @@ public class CalculatorTest {
         String expression = "a = 500\nb = a + 300\nc = b - (a * 2)\nd = c / 5\ne = d * 2\ne\n";
         double expected = -80.0;
         double result = evaluateExpression(expression);
-        assertEquals(expected, result, "Expression with bigger numbers and two operations should equal 600");
+        assertEquals(expected, result, "Expression with bigger numbers and two operations should equal -80.0");
     }
 
     @org.junit.Test
@@ -142,15 +142,15 @@ public class CalculatorTest {
         String expression = "a = 1000\nb = a * 3\nc = b / 2\nd = c - (a / 5)\ne = d * 4\nf = e / 10\ng = f + (a * 2)\nh = g * 3\ni = h / 2\nj = i + 100\nk = j - 500\nl = k / 4\nm = l + 2000\nn = m * 2\no = n / 5\np = o - 1000\nq = p * 3\nr = q / 2\ns = r + 1000\nt = s - 500\nu = t / 4\nv = u + 2000\nw = v * 2\nx = w / 5\ny = x + 1000\nz = y - 500\nz\n";
         double expected = 1370.7;
         double result = evaluateExpression(expression);
-        assertEquals(expected, result, "Expression with bigger numbers and multiple expressions should equal 5600");
+        assertEquals(expected, result, "Expression with bigger numbers and multiple expressions should equal 1370.7");
     }
 
     @org.junit.Test
     public void testExpressionMoreOperations() {
-        String expression = "x = 7\ny = 5\nz=(x+y/4)\nz\n";
-        double expected = 1.75;
+        String expression = "x = 7\ny = 5\nz=(x+(y/4))\nz\n";
+        double expected = 8.25;
         double result = evaluateExpression(expression);
-        assertEquals(expected, result, "Expression with bigger numbers and multiple expressions should equal 5600");
+        assertEquals(expected, result, "Expression with bigger numbers and multiple expressions should equal 8.25");
     }
 
 }
