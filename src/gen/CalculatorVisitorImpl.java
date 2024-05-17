@@ -2,15 +2,31 @@ package gen;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.tree.*;
 
 public class CalculatorVisitorImpl extends CalculatorBaseVisitor<Double> {
     private Map<String, Double> variables = new HashMap<>();
-    private Double result; // Afegim una variable per emmagatzemar el resultat
+    private Double result;
 
     @Override
-    public Double visitAssign(CalculatorParser.AssignContext ctx) {
+    public Double visitProgram(CalculatorParser.ProgramContext ctx) {
+        for (CalculatorParser.StatementContext statementContext : ctx.statement()) {
+            visit(statementContext);
+        }
+        return null;
+    }
+
+    @Override
+    public Double visitExprStatement(CalculatorParser.ExprStatementContext ctx) {
+        return visit(ctx.expr());
+    }
+
+    @Override
+    public Double visitAssignmentStatement(CalculatorParser.AssignmentStatementContext ctx) {
+        return visit(ctx.assign());
+    }
+
+    @Override
+    public Double visitAssignment(CalculatorParser.AssignmentContext ctx) {
         String varName = ctx.ID().getText();
         double value = visit(ctx.expr());
         variables.put(varName, value);
@@ -18,8 +34,36 @@ public class CalculatorVisitorImpl extends CalculatorBaseVisitor<Double> {
     }
 
     @Override
+    public Double visitMulDiv(CalculatorParser.MulDivContext ctx) {
+        double left = visit(ctx.term(0));
+        for (int i = 1; i < ctx.term().size(); i++) {
+            if (ctx.MUL(i - 1) != null) {
+                left *= visit(ctx.term(i));
+            } else if (ctx.DIV(i - 1) != null) {
+                left /= visit(ctx.term(i));
+            }
+        }
+        result = left;
+        return result;
+    }
+
+    @Override
+    public Double visitAddSub(CalculatorParser.AddSubContext ctx) {
+        double left = visit(ctx.factor(0));
+        for (int i = 1; i < ctx.factor().size(); i++) {
+            if (ctx.ADD(i - 1) != null) {
+                left += visit(ctx.factor(i));
+            } else if (ctx.SUB(i - 1) != null) {
+                left -= visit(ctx.factor(i));
+            }
+        }
+        result = left;
+        return result;
+    }
+
+    @Override
     public Double visitInt(CalculatorParser.IntContext ctx) {
-        return Double.parseDouble(ctx.getText());
+        return Double.parseDouble(ctx.INT().getText());
     }
 
     @Override
@@ -32,45 +76,11 @@ public class CalculatorVisitorImpl extends CalculatorBaseVisitor<Double> {
     }
 
     @Override
-    public Double visitAddSub(CalculatorParser.AddSubContext ctx) {
-        double left = visit(ctx.expr(0));
-        double right = visit(ctx.expr(1));
-        if (ctx.ADD() != null) {
-            result = left + right; // Assignem el resultat a la variable result
-            return result;
-        } else {
-            result = left - right; // Assignem el resultat a la variable result
-            return result;
-        }
-    }
-
-    @Override
-    public Double visitMulDiv(CalculatorParser.MulDivContext ctx) {
-        double left = visit(ctx.term(0));
-        double right = visit(ctx.term(1));
-        if (ctx.MUL() != null) {
-            result = left * right; // Assignem el resultat a la variable result
-            return result;
-        } else {
-            result = left / right; // Assignem el resultat a la variable result
-            return result;
-        }
-    }
-
-
-
-    // Add this method
-    @Override
-    public Double visitProgram(CalculatorParser.ProgramContext ctx) {
-        // Visit each statement in the program
-        for (CalculatorParser.StatementContext statementContext : ctx.statement()) {
-            visit(statementContext);
-        }
-        return null;
+    public Double visitParens(CalculatorParser.ParensContext ctx) {
+        return visit(ctx.expr());
     }
 
     public String getResult() {
         return Double.toString(result);
     }
 }
-

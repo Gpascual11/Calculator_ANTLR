@@ -3,10 +3,10 @@ grammar Calculator;
 program: statement* EOF;
 
 statement: expr NEWLINE                  # ExprStatement
-    | assign NEWLINE                    # AssignmentStatement
+    | assign                            # AssignmentStatement
     ;
 
-assign: ID '=' expr                    # Assignment
+assign: ID ASSIGN expr NEWLINE          # Assignment
     ;
 
 expr: term ((MUL | DIV) term)*         # MulDiv
