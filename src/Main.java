@@ -1,3 +1,8 @@
+/*
+ * This class provides a simple example of using the Calculator language parser and visitor.
+ * It demonstrates parsing an input expression, creating a parse tree, and evaluating the expression.
+ */
+
 import gen.CalculatorLexer;
 import gen.CalculatorParser;
 import gen.CalculatorVisitorImpl;

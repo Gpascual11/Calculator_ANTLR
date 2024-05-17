@@ -145,4 +145,12 @@ public class CalculatorTest {
         assertEquals(expected, result, "Expression with bigger numbers and multiple expressions should equal 5600");
     }
 
+    @org.junit.Test
+    public void testExpressionMoreOperations() {
+        String expression = "x = 7\ny = 5\nz=(x+y/4)\nz\n";
+        double expected = 1.75;
+        double result = evaluateExpression(expression);
+        assertEquals(expected, result, "Expression with bigger numbers and multiple expressions should equal 5600");
+    }
+
 }
