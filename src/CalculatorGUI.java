@@ -6,119 +6,81 @@ import org.antlr.v4.runtime.tree.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class CalculatorGUI extends JFrame {
-    private JTextField displayField;
-    private StringBuilder inputBuffer;
+    private final JTextArea inputArea;
+    private final JTextArea outputArea;
 
     public CalculatorGUI() {
         setTitle("Calculator");
-        setSize(400, 500);
+        setSize(400, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setResizable(false); // Prevent resizing
 
-        inputBuffer = new StringBuilder();
+        // Create components
+        inputArea = new JTextArea(5, 30);
+        inputArea.setFont(new Font("Arial", Font.PLAIN, 14));
+        inputArea.setLineWrap(true);
+        inputArea.setWrapStyleWord(true);
+        outputArea = new JTextArea(5, 30);
+        outputArea.setEditable(false);
+        outputArea.setFont(new Font("Arial", Font.BOLD, 14));
+        outputArea.setBackground(new Color(240, 240, 240));
+        JButton calculateButton = new JButton("Calculate");
+        calculateButton.setBackground(new Color(50, 150, 250));
+        calculateButton.setForeground(Color.WHITE);
+        calculateButton.setFont(new Font("Arial", Font.BOLD, 14));
 
-        displayField = new JTextField();
-        displayField.setEditable(false);
-        displayField.setFont(new Font("Arial", Font.PLAIN, 24));
-        displayField.setHorizontalAlignment(SwingConstants.RIGHT);
-        displayField.setBackground(new Color(200, 200, 200));
-
-        JPanel buttonPanel = new JPanel(new GridLayout(5, 4, 5, 5));
-        buttonPanel.setBackground(new Color(55, 55, 55)); // Dark gray background
-
-        String[] buttonLabels = {
-                "7", "8", "9", "/",
-                "4", "5", "6", "*",
-                "1", "2", "3", "-",
-                "0", "=", "+", "Enter"
-        };
-
-        for (String label : buttonLabels) {
-            JButton button = createButton(label);
-            buttonPanel.add(button);
-        }
-
-        JPanel controlPanel = new JPanel(new GridLayout(1, 1, 5, 5));
-        controlPanel.setBackground(new Color(55, 55, 55)); // Dark gray background
-        controlPanel.add(displayField);
-
+        // Add components to the frame
         setLayout(new BorderLayout());
-        add(controlPanel, BorderLayout.NORTH);
-        add(buttonPanel, BorderLayout.CENTER);
-    }
+        JPanel inputPanel = new JPanel(new BorderLayout());
+        inputPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        inputPanel.add(new JScrollPane(inputArea), BorderLayout.CENTER);
+        inputPanel.add(calculateButton, BorderLayout.SOUTH);
+        add(inputPanel, BorderLayout.CENTER);
+        JPanel outputPanel = new JPanel(new BorderLayout());
+        outputPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        outputPanel.add(new JScrollPane(outputArea), BorderLayout.CENTER);
+        add(outputPanel, BorderLayout.NORTH);
 
-    private JButton createButton(String label) {
-        JButton button = new JButton(label);
-        button.setFont(new Font("Arial", Font.PLAIN, 24));
-        button.setFocusPainted(false); // Remove button focus
-        button.addActionListener(new ButtonClickListener());
-
-        switch (label) {
-            case "/":
-            case "*":
-            case "-":
-            case "+":
-                button.setBackground(new Color(255, 140, 0)); // Orange for operations
-                button.setForeground(Color.WHITE); // White text color
-                break;
-            case "=":
-                button.setBackground(new Color(70, 130, 180)); // Steel blue for equals
-                button.setForeground(Color.WHITE); // White text color
-                break;
-            case "Enter":
-                button.setBackground(new Color(34, 139, 34)); // Forest green for Enter
-                button.setForeground(Color.WHITE); // White text color
-                button.addActionListener(new EnterButtonListener());
-                break;
-            default:
-                button.setBackground(new Color(169, 169, 169)); // Light gray for numbers
-                button.setForeground(Color.BLACK); // Black text color
-        }
-
-        return button;
-    }
-
-    private class ButtonClickListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            JButton source = (JButton) e.getSource();
-            String label = source.getText();
-            if (label.equals("=")) {
-                calculateExpression();
-            } else if (!label.equals("Enter")) {
-                displayField.setText(displayField.getText() + label);
-            }
-        }
-    }
-
-    private class EnterButtonListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            inputBuffer.append(displayField.getText()).append("\n");
-            displayField.setText("");
-        }
+        // Add action listener to the button
+        calculateButton.addActionListener(_ -> calculateExpression());
     }
 
     private void calculateExpression() {
         try {
-            String inputExpression = displayField.getText();
+            // Read input expression
+            String inputExpression = inputArea.getText();
+
+            // Create a CharStream that reads from the input string
             CharStream input = CharStreams.fromString(inputExpression);
+
+            // Create a lexer that feeds off of input CharStream
             CalculatorLexer lexer = new CalculatorLexer(input);
+
+            // Create a buffer of tokens pulled from the lexer
             CommonTokenStream tokens = new CommonTokenStream(lexer);
+
+            // Create a parser that feeds off the tokens buffer
             CalculatorParser parser = new CalculatorParser(tokens);
+
+            // Parse the input to create a parse tree
             ParseTree tree = parser.program();
+
+            // Create a visitor to evaluate the expressions
             CalculatorVisitorImpl visitor = new CalculatorVisitorImpl();
+
+            // Traverse the parse tree using the visitor
             visitor.visit(tree);
-            displayField.setText(String.valueOf(visitor.getResult()));
+
+            // Output the result
+            outputArea.setText("Result: " + visitor.getResult());
         } catch (RecognitionException e) {
-            displayField.setText("Error");
+            // Handle parsing errors
+            outputArea.setText("Recognition error: " + e.getMessage());
         } catch (Exception e) {
-            displayField.setText("Error");
+            // Handle other potential errors
+            outputArea.setText("Error: " + e.getMessage());
         }
     }
 

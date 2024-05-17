@@ -1,4 +1,4 @@
-package gen;// Generated from C:/Users/Nil/IdeaProjects/Calculator_ANTLR/src/Calculator.g4 by ANTLR 4.13.1
+package gen;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
