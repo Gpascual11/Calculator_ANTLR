@@ -85,19 +85,21 @@
 
 4. How to install and run the tool
 
-	1) Install IntellIJ Community Version (if not installed yet)
+   	0) These steps are on how to install the dependencies on IntellIJ.
 
-		Available download at:
-			https://www.jetbrains.com/es-es/idea/download/?section=windows
+   	   Available download at:
+			https://www.jetbrains.com/idea/
+
+	2) Use a Java IDE.
 	
-	2) Install the ANTLR plugin
+	3) Install the ANTLR plugin
 
 		a) Click on Settings
 		b) Click on Plugins
-		c) Search for "ANTLR v4"
+		c) Search for "ANTLR v4": https://plugins.jetbrains.com/plugin/7358-antlr-v4
 		d) Click on install
 
-	3) Install the ANTLR dependencies on the project
+	4) Install the ANTLR dependencies on the project
 
 		a) Click on Settings
 		b) Click on Project Structure
@@ -106,7 +108,28 @@
 		e) Remove the existing "antlr-4.13.1-complete.jar" if is detected
 		f) Click on the "+" sign and then "1| Jar or Directories"
 		g) Load the "antlr-4.13.1-complete.jar" delivered with the project		
+		h) Apply changes and restart the IDE.
 
-5. How to use
+6. How to use
+
+	1) Main calculator
+   		a) Enter any operation on "String inputExpression"
+    		   Divide the text in different lines using "\n".
+    
+    		   This is an example:
+    			String inputExpression = "x = 2\ny = 3\nx + (y * 4)\n";
+
+	3) Calculator GUI
+		a) Run "CalculatorGUI.java"
+		b) Enter any operation on the TextArea
+		c) Press the "Calculate" button to see the result
+		  (Press the "Clear" button to clean the text on screen).
+
+	5) Calculator TEST
+ 		a) Run "CalculatorTest.java"
+
+ 
+
+
 
 
